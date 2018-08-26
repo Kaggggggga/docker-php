@@ -1,1 +1,1 @@
-# docker-php-amqp
+# docker-php
