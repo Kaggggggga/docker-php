@@ -21,7 +21,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 ENV PHP_CONFIG_CUSTOM_LOGLEVEL=notice \
     PHP_CONFIG_CUSTOM_PORT=9000 \
-    PHP_CONFIG_CUSTOM_MEMORY_LIMIT=128M
+    PHP_CONFIG_CUSTOM_MEMORY_LIMIT=128M \
+    LARAVEL_ROOT=/srv \
+    LARAVEL_CONFIG_CACHE=1 \
+    LARAVEL_ROUTE_CACHE=1
 
 WORKDIR /srv
 COPY etc/. /usr/local/etc/
