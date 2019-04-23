@@ -5,13 +5,13 @@ services:
     build:
       context: .
       dockerfile: php-fpm/Dockerfile
-    image: hk01/docker-php:test
+    image: docker-php:test
     entrypoint: /base/scripts/start-fpm.sh
 #    entrypoint: tail -f /dev/null
     ports:
-    - "8999:8999"
+    - "9000:9000"
     environment:
-    - PHP_CONFIG_CUSTOM_PORT=8999
+    - PHP_CONFIG_CUSTOM_PORT=9000
 #    - PHP_CONFIG_CUSTOM_LOGLEVEL=debug
     - PHP_CONFIG_CUSTOM_MEMORY_LIMIT=128M
     healthcheck:
