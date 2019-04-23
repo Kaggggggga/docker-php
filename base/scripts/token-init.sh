@@ -7,4 +7,4 @@ set -e
 # then just yarn and git as your local dev environment (subject to the token permission)
 
 echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-git config --global url."https://hk01bot:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+git config --global url."https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
