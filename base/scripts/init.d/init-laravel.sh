@@ -2,7 +2,7 @@
 set -e
 if [[ ! -z "$LARAVEL_LOG_PATH" ]]; then
     echo "init laravel log pipe '$LARAVEL_LOG_PATH'"
-    mkdir $(dirname $LARAVEL_LOG_PATH)
+    mkdir -p $(dirname $LARAVEL_LOG_PATH)
     mkfifo $LARAVEL_LOG_PATH
     chmod 777 $LARAVEL_LOG_PATH
 fi
