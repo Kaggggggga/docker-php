@@ -6,18 +6,52 @@ RUN apt-get update \
         unzip \
         git \
         gettext \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN docker-php-ext-install \
-            bcmath \
-            mbstring \
-    && docker-php-ext-configure bcmath --enable-bcmath \
-    && docker-php-ext-configure mbstring --enable-mbstring
+        vim
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
+RUN docker-php-ext-install \
+            bcmath \
+            mbstring \
+            pdo \
+            pdo_mysql \
+            tokenizer \
+            ctype \
+            json
+
+# php-ext xml
+RUN apt-get install -y --no-install-recommends \
+        libxml2-dev \
+    && docker-php-ext-install \
+            xml
+
+# php-ext memcached
+RUN apt-get install -y --no-install-recommends \
+        zlib1g-dev \
+        libmemcached-dev \
+        libmemcached11 \
+        libmemcachedutil2 \
+    && git clone --single-branch --branch php7 --depth 1 \
+        https://github.com/php-memcached-dev/php-memcached \
+        /usr/src/php/ext/memcached \
+    && docker-php-ext-configure memcached \
+          --disable-memcached-sasl \
+    && docker-php-ext-install memcached
+
+# cleanup
+RUN echo "alias ll='ls -lrt'" >> $HOME/.bashrc \
+    && apt-get purge -y --auto-remove \
+        libxml2-dev \
+        zlib1g-dev \
+        libmemcached-dev \
+        libc6-dev \
+        make \
+        g++ \
+        gcc \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PHP_CONFIG_CUSTOM_LOGLEVEL=notice \
     PHP_CONFIG_CUSTOM_PORT=9000 \
