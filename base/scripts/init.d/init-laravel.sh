@@ -9,11 +9,11 @@ fi
 
 artisan=$LARAVEL_ROOT/artisan
 if [ -f $artisan ]; then
-    if [[ ! -z "$LARAVEL_CONFIG_CACHE" ]]; then
+    if [[ "$LARAVEL_CONFIG_CACHE" = "true" ]]; then
         echo "laravel config:cache"
         php $artisan config:cache
     fi
-    if [[ ! -z "$LARAVEL_ROUTE_CACHE" ]]; then
+    if [[ "$LARAVEL_ROUTE_CACHE" = "true" ]]; then
         echo "laravel route:cache"
         php $artisan route:cache
     fi

@@ -4,16 +4,21 @@ services:
   php-fpm:
     build:
       context: .
-      dockerfile: php-fpm/Dockerfile
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE_VERSION_TAG: 7.1-fpm-stretch
+#        BASE_IMAGE_VERSION_TAG: 7.1.31-fpm-stretch
+#        BASE_IMAGE_VERSION_TAG: 7.2.21-fpm-stretch
+#        BASE_IMAGE_VERSION_TAG: 7.3.8-fpm-stretch
     image: docker-php:test
     entrypoint: /base/scripts/start-fpm.sh
 #    entrypoint: tail -f /dev/null
     ports:
     - "9000:9000"
     environment:
-    - PHP_CONFIG_CUSTOM_PORT=9000
-#    - PHP_CONFIG_CUSTOM_LOGLEVEL=debug
-    - PHP_CONFIG_CUSTOM_MEMORY_LIMIT=128M
+      PHP_CONFIG_CUSTOM_PORT: 9000
+#      PHP_CONFIG_CUSTOM_LOGLEVEL: debug
+      PHP_CONFIG_CUSTOM_MEMORY_LIMIT: 128M
     healthcheck:
       test: ["CMD", "/base/scripts/healthz.sh"]
       interval: 1s
